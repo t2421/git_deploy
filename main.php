@@ -11,14 +11,13 @@ $base_path = $config->getWebPath();
 $command = $config->getCommand();
 
 Log::clear($log_path);
-
 $body = json_decode(file_get_contents($command), TRUE);
 $git_data = GitDataFactory::createData($body);
 $git_data->init();
 
-Log::output($log_path,"repository_name:".$git_data->repository_name);
-Log::output($log_path,"branch_name:".$git_data->branch_name);
-Log::output($log_path,"remote_repository:".$git_data->remote_repository);
+Log::output($log_path,"repository_name : ".$git_data->repository_name);
+Log::output($log_path,"branch_name : ".$git_data->branch_name);
+Log::output($log_path,"ssh_remote_repository : ".$git_data->remote_repository);
 
 $config = json_decode(file_get_contents($config_path.$git_data->repository_name.".json"),TRUE);
 
@@ -35,11 +34,11 @@ $is_exists_repository = file_exists($deploy_path."/.git");
 
 if($is_exists_repository){
     //リモートと同期
-    $cmd = "cd {$deploy_path} && git fetch && git reset --hard && git checkout -f {$git_data->branch_name} && git merge origin/{$git_data->branch_name}";
+    $cmd = "cd {$deploy_path} && git fetch && git reset --hard && git checkout -f {$git_data->branch_name} && git merge origin/{$git_data->branch_name} 2>&1";
 }else{
     //clone
-    $cmd = "cd {$deploy_path} && git clone {$git_data->remote_repository} ./";
+    $cmd = "cd {$deploy_path} && git clone {$git_data->remote_repository} ./ 2>&1";
 }
-Log::output($log_path,$cmd);
+Log::output($log_path,"excute command : ".$cmd);
 exec($cmd,$out,$stat);
-Log::output($log_path,json_encode($out));
+Log::output($log_path,"excute command result : ".json_encode($out));
