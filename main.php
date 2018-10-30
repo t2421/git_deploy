@@ -23,7 +23,7 @@ $config = json_decode(file_get_contents($config_path.$git_data->repository_name.
 
 $deploy_path = $base_path.$config[$git_data->branch_name];
 $is_exists_deploy_dir = file_exists($deploy_path);
-
+Log::output($log_path,"destination path : ".$deploy_path);
 
 
 if(!$is_exists_deploy_dir){
@@ -47,5 +47,4 @@ Log::output($log_path,"excute command result : ".json_encode($out));
 if($stat !== 0){
     $notification = new TestSlackNotification();
     $notification->notify(Log::get($log_path));
-    Log::output($log_path,"oooops error.....");
 }
