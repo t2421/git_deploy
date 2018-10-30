@@ -20,6 +20,7 @@ GitlabおよびGitHubに対応している。
 
 ## Notificationについて
 サーバー側でエラーが出たときに、わかりやすいように様々なNotificationを用意する  
+main.phpからは、具体的なクラスを意識しないように、NotificationFactoryを使ってインスタンスを生成する。
 + mail
 + slack
 ### MailNotification
@@ -27,3 +28,6 @@ GitlabおよびGitHubに対応している。
 ローカルでのテストはsmtp4devが便利。  
 https://github.com/rnwood/smtp4dev/releases/tag/v2.0.10  
 各個別のプロジェクトに合わせて、宛先などをカスタムするため、MailNotificationクラスを継承して適宜クラスを作成する。サブクラスのコンストラクタで設定を初期化する。
+### SlackNotification
+Slackでログの内容を送信する。  
+各個別のプロジェクトに合わせて、チャンネルやtokenなどをカスタムするため、SlackNotificationクラスを継承して適宜クラスを作成する。サブクラスのコンストラクタで設定を初期化する。
