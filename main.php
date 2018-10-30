@@ -2,7 +2,7 @@
 require_once(dirname(__FILE__)."/classes/GitDataFactory.php");
 require_once(dirname(__FILE__)."/classes/ConfigFactory.php");
 require_once(dirname(__FILE__)."/classes/Log.php");
-require_once(dirname(__FILE__)."/classes/TestMailNotification.php");
+require_once(dirname(__FILE__)."/classes/TestSlackNotification.php");
 
 $config = ConfigFactory::getConfig();
 $config_path = $config->getConfigPath();
@@ -45,7 +45,7 @@ Log::output($log_path,"excute command status : ".$stat);
 Log::output($log_path,"excute command result : ".json_encode($out));
 
 if($stat !== 0){
-    $notification = new TestMailNotification();
+    $notification = new TestSlackNotification();
     $notification->notify(Log::get($log_path));
     Log::output($log_path,"oooops error.....");
 }
