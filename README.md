@@ -17,3 +17,13 @@ GitlabおよびGitHubに対応している。
 |  Gitlab  |  test/gitlab_request_body.json  |
 
 ダミーのデータを読み込んでCloneすることができる。
+
+## Notificationについて
+サーバー側でエラーが出たときに、わかりやすいように様々なNotificationを用意する  
++ mail
++ slack
+### MailNotification
+メールでログの内容を送信する。  
+ローカルでのテストはsmtp4devが便利。  
+https://github.com/rnwood/smtp4dev/releases/tag/v2.0.10  
+各個別のプロジェクトに合わせて、宛先などをカスタムするため、MailNotificationクラスを継承して適宜クラスを作成する。サブクラスのコンストラクタで設定を初期化する。

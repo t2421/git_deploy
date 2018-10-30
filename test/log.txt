@@ -1,5 +1,0 @@
-repository_name:sampleproject
-branch_name:master
-remote_repository:git@gitlab.com:t2421/sampleproject.git
-cd test/web/sampleproject/master && git fetch && git reset --hard && git checkout -f master && git merge origin/master
-["HEAD is now at 8cdede0 Initial commit","Your branch is up-to-date with 'origin\/master'.","Already up-to-date."]

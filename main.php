@@ -2,7 +2,7 @@
 require_once(dirname(__FILE__)."/classes/GitDataFactory.php");
 require_once(dirname(__FILE__)."/classes/ConfigFactory.php");
 require_once(dirname(__FILE__)."/classes/Log.php");
-
+require_once(dirname(__FILE__)."/classes/TestMailNotification.php");
 
 $config = ConfigFactory::getConfig();
 $config_path = $config->getConfigPath();
@@ -41,4 +41,11 @@ if($is_exists_repository){
 }
 Log::output($log_path,"excute command : ".$cmd);
 exec($cmd,$out,$stat);
+Log::output($log_path,"excute command status : ".$stat);
 Log::output($log_path,"excute command result : ".json_encode($out));
+
+if($stat !== 0){
+    $notification = new TestMailNotification();
+    $notification->notify(Log::get($log_path));
+    Log::output($log_path,"oooops error.....");
+}

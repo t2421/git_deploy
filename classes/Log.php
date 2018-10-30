@@ -17,4 +17,10 @@ class Log
         $msg .= "\n";
         error_log($msg, 3, $filename);
     }
+
+    static function get($filename)
+    {
+        $contents = file_get_contents($filename);
+        return $contents;
+    }
 }
